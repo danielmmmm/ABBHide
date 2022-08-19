@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Hide releases on ABB
 // @description    Hide releases by specific users on ABB
-// @version        0.32
+// @version        0.33
 // @author         mseitz
 // @namespace      https://greasyfork.org/en/scripts/443140-hide-releases-on-abb
 // @license        MIT
