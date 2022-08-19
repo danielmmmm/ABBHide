@@ -11,7 +11,7 @@
 // @match          http://audiobookbay.fi/*
 // @match          https://audiobookbay.nl/*
 // @match          https://audiobookbay.fi/*
-// @icon           https://icons.duckduckgo.com/ip3/audiobookbay.fi.ico
+// @icon           https://audiobookbay.fi/favicon.ico
 // @run-at         document-idle
 // ==/UserScript==
  
