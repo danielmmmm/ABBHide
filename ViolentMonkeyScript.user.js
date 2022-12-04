@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name           Hide releases on ABB
 // @description    Hide releases by specific users on ABB
-// @version        0.34
+// @version        0.35
 // @author         mseitz
 // @namespace      https://greasyfork.org/en/scripts/443140-hide-releases-on-abb
 // @license        MIT
 // @grant          GM_getValue
 // @grant          GM_setValue
 // @match          *://audiobookbay.*/*
-// @icon           https://audiobookbay.fi/favicon.ico
+// @icon           https://audiobookbay.li/favicon.ico
 // @run-at         document-idle
 // ==/UserScript==
  
