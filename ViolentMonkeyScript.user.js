@@ -5,6 +5,7 @@
 // @author         mseitz
 // @namespace      https://greasyfork.org/en/scripts/443140-hide-releases-on-abb
 // @license        MIT
+// @require        https://code.jquery.com/jquery-3.6.1.slim.min.js
 // @grant          GM_getValue
 // @grant          GM_setValue
 // @match          *://audiobookbay.*/*
@@ -28,18 +29,6 @@
 //  2  shows a placeholder "(Posting by user XYZ removed)" or (Posting of category "Category" removed; only first matched category shown)
 
 
-
-
-// Declare unsafeWindow for Firefox and Chrome
-jQuery(document).ready(function($){
-  var unsafeWindow = window.wrappedJSObject;
-  if (typeof unsafeWindow != "undefined") {
-    var $ = window.wrappedJSObject.$;
-  } else {
-    console.log("No jQuery object, returning");
-    return;
-  }
-});
 
 
 //Check for GM_set/get API
