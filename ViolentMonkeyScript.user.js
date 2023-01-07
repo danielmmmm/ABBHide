@@ -30,16 +30,16 @@
 
 
 
-// Declare unsafeWindow for Firefox
-var unsafeWindow = window.wrappedJSObject;
-var $;
-// For sanity just return if we don't have the object
-if (typeof unsafeWindow.$ === 'undefined') {
-  console.log('No jQuery object, returning');
-  return;
-} else {
-  $ = unsafeWindow.$;
-}
+// Declare unsafeWindow for Firefox and Chrome
+jQuery(document).ready(function($){
+  var unsafeWindow = window.wrappedJSObject;
+  if (typeof unsafeWindow != "undefined") {
+    var $ = window.wrappedJSObject.$;
+  } else {
+    console.log("No jQuery object, returning");
+    return;
+  }
+});
 
 
 //Check for GM_set/get API
