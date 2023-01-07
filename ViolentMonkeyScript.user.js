@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name           Hide releases on ABB
-// @description    Hide releases by specific users on ABB
+// @name           Hide releases (categories/users) on ABB
+// @description    Hide releases in specific categories or by specific users on ABB
 // @version        0.36
 // @author         mseitz
 // @namespace      https://greasyfork.org/en/scripts/443140-hide-releases-on-abb
