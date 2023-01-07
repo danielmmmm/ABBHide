@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Hide releases on ABB
 // @description    Hide releases by specific users on ABB
-// @version        0.35
+// @version        0.36
 // @author         mseitz
 // @namespace      https://greasyfork.org/en/scripts/443140-hide-releases-on-abb
 // @license        MIT
@@ -11,9 +11,9 @@
 // @icon           https://audiobookbay.li/favicon.ico
 // @run-at         document-idle
 // ==/UserScript==
- 
- 
-//Explanation of values
+
+
+//Explanation of user values
 //
 //--blocklistCategory/blocklistUser--
 // Contains ABB categories/usernames to block. The categories/usernames are case sensitive, must be comma seperated, and must not have leading or trailing withe-space.
@@ -26,10 +26,22 @@
 //  0  removes postings completely
 //  1  shows a placeholder "(Posting removed by "Hide releases on ABB")"
 //  2  shows a placeholder "(Posting by user XYZ removed)" or (Posting of category "Category" removed; only first matched category shown)
- 
- 
- 
- 
+
+
+
+
+// Declare unsafeWindow for Firefox
+var unsafeWindow = window.wrappedJSObject;
+var $;
+// For sanity just return if we don't have the object
+if (typeof unsafeWindow.$ === 'undefined') {
+  console.log('No jQuery object, returning');
+  return;
+} else {
+  $ = unsafeWindow.$;
+}
+
+
 //Check for GM_set/get API
 var isGMapi;
 try {
@@ -48,14 +60,14 @@ catch (e) {
   unsafeWindow.console.error(e);
   isGMapi=0;
 }
- 
- 
+
+
 //Check if user settings were set, and either set default values or read settings
 var blockedUserArr;
 var showRemovalUser;
 var blockedCategoryArr;
 var showRemovalCategory;
- 
+
 if (GM_getValue("blocklistUser") == null ) {
   GM_setValue("blocklistUser","Replace this text with usernames you want to block, separated by a comma");
 } else {
@@ -66,7 +78,7 @@ if (GM_getValue("blocklistUser") == null ) {
     unsafeWindow.console.error("UserScript \"Hide releases on ABB\" value \"blocklistUser\" must be of format \"user1,user2,user3\".");
   }
 }
- 
+
 if (GM_getValue("placeholderUser") == null ) {
   GM_setValue("placeholderUser",2);
 } else {
@@ -77,7 +89,7 @@ if (GM_getValue("placeholderUser") == null ) {
     unsafeWindow.console.error("UserScript \"Hide releases on ABB\" value \"placeholderUser\" must be 0, 1, or 2.");
   }
 }
- 
+
 if (GM_getValue("blocklistCategory") == null ) {
   GM_setValue("blocklistCategory","Replace this text with a category you want to block, separated by a comma");
 } else {
@@ -88,7 +100,7 @@ if (GM_getValue("blocklistCategory") == null ) {
     unsafeWindow.console.error("UserScript \"Hide releases on ABB\" value \"blocklistCategory\" must be of format \"some category, category 2,some other category\".");
   }
 }
- 
+
 if (GM_getValue("placeholderCategory") == null ) {
   GM_setValue("placeholderCategory",2);
 } else {
@@ -99,8 +111,8 @@ if (GM_getValue("placeholderCategory") == null ) {
     unsafeWindow.console.error("UserScript \"Hide releases on ABB\" value \"placeholderCategory\" must be 0, 1, or 2.");
   }
 }
- 
- 
+
+
 //Block category - read blocklist into array and remove respective div
 for (var j = 0; j < blockedCategoryArr.length; j++) {
   if (showRemovalCategory == 0) {
@@ -113,8 +125,8 @@ for (var j = 0; j < blockedCategoryArr.length; j++) {
     unsafeWindow.console.error("UserScript \"Hide releases on ABB\" value \"placeholderCategory\" must be null, 0, 1, or 3.");
   }
 }
- 
- 
+
+
 //Block user - read blocklist into array and remove respective div
 for (var i = 0; i < blockedUserArr.length; i++) {
   if (showRemovalUser == 0) {
@@ -127,6 +139,6 @@ for (var i = 0; i < blockedUserArr.length; i++) {
     unsafeWindow.console.error("UserScript \"Hide releases on ABB\" value \"show\" must be null, 0, 1, or 3.");
   }
 }
- 
- 
+
+
 //The end
