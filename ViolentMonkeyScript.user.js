@@ -8,7 +8,7 @@
 // @require        https://code.jquery.com/jquery-3.6.4.slim.min.js
 // @grant          GM_getValue
 // @grant          GM_setValue
-// @match          *://audiobookbay.*/*
+// @match          *://audiobookbay.is/*
 // @icon           https://audiobookbay.is/favicon.ico
 // @run-at         document-idle
 // ==/UserScript==
