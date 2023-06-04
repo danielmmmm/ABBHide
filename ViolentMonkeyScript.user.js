@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Hide releases (categories/users) on ABB
 // @description    Hide releases in specific categories or by specific users on ABB
-// @version        0.41
+// @version        0.42
 // @author         mseitz
 // @namespace      https://greasyfork.org/en/scripts/443140-hide-releases-on-abb
 // @license        MIT
@@ -22,14 +22,15 @@
 // Example: "user1,User2,USER3" or "Some Category, Category2,Some other category"
 //
 // --placeholderUser/placeholderCategory/placeholderUserComment--
-// Determines if postings are removed completely, or if a placeholder is shown instead.
-// Possible values for show are:
+// Determines if postings are removed completely, or if a placeholder is shown instead. Possible values (without quotation marks) are:
 //  0  removes postings completely
 //  1  shows a placeholder "(Posting/Comment removed by "Hide releases on ABB")"
 //  2  shows a placeholder "(Posting/Comment by user XYZ removed)" or (Posting of category "Category" removed; only first matched category shown)
 //
 // --removeTrackerInfo--
-//
+// Hides the tracker information from the audiobook release table, which can become bloated when a torrent uses many trackers. Possible values (without quotation marks) are:
+//  0  changes nothing
+//  1  hides the tracker information
 
 
 //Check for GM_set/get API
