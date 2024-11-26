@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Hide releases (categories/users) on ABB
 // @description    Hide releases in specific categories or by specific users on ABB
-// @version        0.43
+// @version        0.44
 // @author         mseitz
 // @namespace      https://greasyfork.org/en/scripts/443140-hide-releases-on-abb
 // @license        MIT
@@ -9,6 +9,7 @@
 // @grant          GM_getValue
 // @grant          GM_setValue
 // @match          *://audiobookbay.lu/*
+// @match          *://audiobookbay.se/*
 // @icon           https://audiobookbay.lu/favicon.ico
 // @run-at         document-idle
 // ==/UserScript==
