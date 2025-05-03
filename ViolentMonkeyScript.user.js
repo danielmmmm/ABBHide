@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Hide releases (categories/users) on ABB
 // @description    Hide releases in specific categories or by specific users on ABB
-// @version        0.45
+// @version        0.46
 // @author         mseitz
 // @namespace      https://greasyfork.org/en/scripts/443140-hide-releases-on-abb
 // @license        MIT
@@ -12,6 +12,8 @@
 // @match          *://audiobookbay.se/*
 // @icon           https://audiobookbay.lu/favicon-32x32.png
 // @run-at         document-idle
+// @downloadURL    https://update.greasyfork.org/scripts/443140/Hide%20releases%20%28categoriesusers%29%20on%20ABB.user.js
+// @updateURL      https://update.greasyfork.org/scripts/443140/Hide%20releases%20%28categoriesusers%29%20on%20ABB.meta.js
 // ==/UserScript==
 
 
@@ -146,7 +148,7 @@ if (GM_getValue('removeTrackerInfo') == null ) {
 
 
 
-if ( window.location.pathname.substring(1) && ! window.location.pathname.match(/\/page\/[0-9]+/) ) {
+if ( window.location.pathname.substring(1) && ! window.location.pathname.match(/\/page\/[0-9]+/) && ! window.location.pathname.match("forum") ) {
 
   //Block user comment - read blocklist into array and remove or modify respective li
   for (var i = 0; i < blockedUserCommentArr.length; i++) {
@@ -164,6 +166,8 @@ if ( window.location.pathname.substring(1) && ! window.location.pathname.match(/
   //Remove tracker information from the torrent_info table
   if (removeTrackerInfo == 1) {
     $('tr:contains("Tracker:")').remove();
+    $('td:contains(".mp3"), td:contains(".m4a"), td:contains(".m4b"), td:contains(".wma"), td:contains(".jpg"), td:contains(".jpeg")').closest('tr').remove();
+    //$('td[colspan="2"]').closest('tr').remove();
     } else {
       unsafeWindow.console.error("UserScript \"Hide releases on ABB\" value \"removeTrackerInfo\" must be null, 0 or 1.");
     }
