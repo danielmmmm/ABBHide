@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Hide releases (categories/users) on ABB
 // @description    Hide releases in specific categories or by specific users on ABB
-// @version        0.46
+// @version        0.47
 // @author         mseitz
 // @namespace      https://greasyfork.org/en/scripts/443140-hide-releases-on-abb
 // @license        MIT
@@ -12,8 +12,8 @@
 // @match          *://audiobookbay.se/*
 // @icon           https://audiobookbay.lu/favicon-32x32.png
 // @run-at         document-idle
-// @downloadURL    https://update.greasyfork.org/scripts/443140/Hide%20releases%20%28categoriesusers%29%20on%20ABB.user.js
-// @updateURL      https://update.greasyfork.org/scripts/443140/Hide%20releases%20%28categoriesusers%29%20on%20ABB.meta.js
+// @downloadURL https://update.greasyfork.org/scripts/443140/Hide%20releases%20%28categoriesusers%29%20on%20ABB.user.js
+// @updateURL https://update.greasyfork.org/scripts/443140/Hide%20releases%20%28categoriesusers%29%20on%20ABB.meta.js
 // ==/UserScript==
 
 
@@ -64,6 +64,8 @@ var showRemovalCategory;
 var blockedUserCommentArr;
 var showRemovalUserComment;
 var removeTrackerInfo
+var blockedLangArr;
+var showRemovalLang;
 
 
 if (GM_getValue('blocklistUser') == null ) {
@@ -121,7 +123,6 @@ if (GM_getValue('blocklistUserComment') == null ) {
   }
 }
 
-
 if (GM_getValue('placeholderUserComment') == null ) {
   GM_setValue('placeholderUserComment',2);
 } else {
@@ -130,6 +131,28 @@ if (GM_getValue('placeholderUserComment') == null ) {
   }
   catch(e){
     unsafeWindow.console.error("UserScript \"Hide releases on ABB\" value \"placeholderUserComment\" must be 0, 1, or 2.");
+  }
+}
+
+if (GM_getValue('blocklistLanguage') == null ) {
+  GM_setValue('blocklistLanguage',"Replace this text with languages (as seen on ABB) you want to block, separated by a comma");
+} else {
+  try{
+    blockedLangArr = GM_getValue('blocklistLanguage').split(",");
+  }
+  catch(e){
+    unsafeWindow.console.error("UserScript \"Hide releases on ABB\" value \"blocklistLanguage\" must be of format \"Language1,Language2,Language3\".");
+  }
+}
+
+if (GM_getValue('showRemovalLang') == null ) {
+  GM_setValue('showRemovalLang',2);
+} else {
+  try{
+    showRemovalUserComment = GM_getValue('showRemovalLang');
+  }
+  catch(e){
+    unsafeWindow.console.error("UserScript \"Hide releases on ABB\" value \"showRemovalLang\" must be 0, 1, or 2.");
   }
 }
 
@@ -202,7 +225,22 @@ if ( window.location.pathname.substring(1) && ! window.location.pathname.match(/
     }
   }
 
+  //Block language - read blocklist into array and remove or modify respective div
+  for (var k = 0; k < blockedLangArr.length; k++) {
+    if (showRemovalLang == 0) {
+      $('div.postInfo:contains(' + 'Language: ' + blockedLangArr[k] + ')').parent('div').remove();
+    } else if (showRemovalUser == 1) {
+      $('div.postInfo:contains(' + 'Language: ' + blockedLangArr[k] + ')').parent('div').replaceWith("<div class='postInfo'>(Posting removed by 'Hide releases on ABB')<br><br></div>");
+    } else if (showRemovalUser == 2) {
+      $('div.postInfo:contains(' + 'Language: ' + blockedLangArr[k] + ')').parent().find("h2").find("a").clone().appendTo('div#content').before('<br>').append(" <span style='color:#0000FF'>(Release in language </span><span style='color:#FF0000'>" + blockedLangArr[k] + "</span><span style='color:#0000FF'> removed)</span><br>").wrap("<div class='blocked' style='font-size: 10px'></div>");
+      $('div.postInfo:contains(' + 'Language: ' + blockedLangArr[k] + ')').parent('div').remove();
+    } else {
+      unsafeWindow.console.error("UserScript \"Hide releases on ABB\" value \"showRemovalLang\" must be null, 0, 1, or 2.");
+    }
+  }
+
 }
+
 
 
 //The end
